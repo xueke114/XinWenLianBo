@@ -275,3 +275,10 @@ year,month,day,start_time,duration,extend,anchorA,anchorB
 2022,06,26,2100,30,F,Li-ZiMeng,Pan-Tao
 2022,06,27,2100,30,F,Hai-Xia,Guo-ZhiJian
 2022,06,28,1900,30,F,Bao-XiaoFeng,Yan-YuXin
+2022,06,29,1900,40,T,Bao-XiaoFeng,Yan-YuXin
+2022,06,30,2100,37,T,Li-ZiMeng,Guo-ZhiJian
+2022,07,01,2100,42,T,Li-ZiMeng,Pan-Tao
+2022,07,02,2100,30,F,Zheng-Li,Gang-Qiang
+2022,07,03,1900,30,F,Zheng-Li,Gang-Qiang
+2022,07,04,1900,30,F,Bao-XiaoFeng,Yan-YuXin
+2022,07,05,1900,30,F,Bao-XiaoFeng,Guo-ZhiJian
