@@ -366,7 +366,7 @@ year,month,day,start_time,duration,extend,anchorA,anchorB
 2022,09,25,2100,30,F,Li-ZiMeng,Pan-Tao
 2022,09,26,1900,30,F,Zheng-Li,Pan-Tao
 2022,09,27,1900,30,F,Li-ZiMeng,Yan-YuXin
-2022,09,28,2100,30,F,Li-ZiMeng,p1-Tao
+2022,09,28,2100,30,F,Li-ZiMeng,Pan-Tao
 2022,09,29,1900,30,F,Bao-XiaoFeng,Guo-ZhiJian
 2022,09,30,1900,50,F,Bao-XiaoFeng,Kang-Hui
 2022,10,01,1900,30,F,Li-ZiMeng,Kang-Hui
@@ -558,3 +558,4 @@ year,month,day,start_time,duration,extend,anchorA,anchorB
 2023,04,05,2100,30,F,Bao-XiaoFeng,Yan-YuXin
 2023,04,06,2100,40,T,Li-ZiMeng,Pan-Tao
 2023,04,07,2100,35,T,Li-ZiMeng,Gang-Qiang
+2023,04,08,2100,30,F,Bao-XiaoFeng,Pan-Tao
