@@ -34,8 +34,8 @@ jobs:
     - name: Install dependencies  
       run: pip install -r requirements.txt
     - name: Run Python script to check commit  
-      run: python3 check_completeness.py
       id: python_run
+      run: python3 check_completeness.py
     - name: Output Run Result
       run: echo ${{ steps.python_run.outputs.result }}
       env:  
