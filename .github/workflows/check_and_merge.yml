@@ -1,0 +1,57 @@
+name: Check Completeness And Auto Merge to Master  
+  
+on:  
+  push:  
+    branches: [ develop ]  
+  
+jobs:  
+  create_pr:  
+    runs-on: ubuntu-22.04 
+    steps:  
+    - uses: actions/checkout@v4 
+    - name: Create Pull Request  
+      uses: actions/github-script@v6 
+      with:  
+        github-token: ${{secrets.GITHUB_TOKEN}}  
+        script: |  
+          const result = await github.pulls.create({  
+            owner: context.repo.owner,  
+            repo: context.repo.repo,  
+            title: 'Auto Merge from Develop',  
+            head: 'develop',  
+            base: 'master'  
+          })  
+          core.setOutput('pull_request_number', result.data.number)
+  check_commit:  
+    runs-on: ubuntu-latest  
+    steps:  
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.8  
+      uses: actions/setup-python@v4
+      with:  
+        python-version: 3.8  
+        cache: 'pip'
+    - name: Install dependencies  
+      run: pip install -r requirements.txt  # 如果你的脚本有依赖，请确保它们已经安装  
+    - name: Run Python script to check commit  
+      run: |  
+        python3 check_completeness.py  # 替换为你的Python脚本的名称  
+      env:  
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+    outputs:  
+      should_merge: ${{ steps.run_script.outcome == 'success' }}  
+  merge_pr:  
+    runs-on: ubuntu-latest  
+    needs: [check_commit]  
+    if: needs.check_commit.outputs.should_merge == 'true'  
+    steps:  
+    - name: Merge Pull Request  
+      uses: actions/github-script@v3  
+      with:  
+        github-token: ${{secrets.GITHUB_TOKEN}}  
+        script: |  
+          github.pulls.merge({  
+            owner: context.repo.owner,  
+            repo: context.repo.repo,  
+            pull_number: ${{needs.create_pr.outputs.pull_request_number}}  
+          })
