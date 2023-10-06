@@ -8,15 +8,20 @@ jobs:
   create_pr:  
     runs-on: ubuntu-22.04 
     steps:  
-    - uses: actions/checkout@v3
-    - name: Create Pull Request
-      id: cpr
-      uses: peter-evans/create-pull-request@v5
+    - uses: actions/checkout@v4 
+    - name: Create Pull Request  
+      uses: actions/github-script@v6 
       with:  
-        token: ${{secrets.GITHUB_TOKEN}}  
-        branch: develop
-        base: master
-        title: 'Check Develop'
+        github-token: ${{secrets.GITHUB_TOKEN}}  
+        script: |  
+          const result = await github.rest.pulls.create({  
+            owner: context.repo.owner,  
+            repo: context.repo.repo,  
+            title: 'Auto Merge from Develop',  
+            head: 'develop',  
+            base: 'master'  
+          })  
+          core.setOutput('pull_request_number', result.data.number)
   check_commit:  
     runs-on: ubuntu-latest  
     steps:  
@@ -41,12 +46,12 @@ jobs:
     if: needs.check_commit.outputs.should_merge == 'true'  
     steps:  
     - name: Merge Pull Request  
-      uses: actions/github-script@v3  
+      uses: actions/github-script@v6 
       with:  
         github-token: ${{secrets.GITHUB_TOKEN}}  
         script: |  
-          github.pulls.merge({  
+          github.rest.pulls.merge({  
             owner: context.repo.owner,  
             repo: context.repo.repo,  
-            pull_number: ${{ steps.cpr.outputs.pull-request-number }}
+            pull_number: ${{needs.create_pr.outputs.pull_request_number}}  
           })
