@@ -36,24 +36,22 @@ jobs:
     - name: Run Python script to check commit  
       id: python_run
       run: python3 check_completeness.py
-    - name: Output Run Result
-      run: echo ${{ steps.python_run.outputs.result }}
       env:  
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
     outputs:  
       should_merge: ${{ steps.python_run.outputs.result == 'success' }}
 
-  merge_pr:  
-    runs-on: ubuntu-22.04  
+  merge_pr:
+    runs-on: ubuntu-latest  
     needs: [check_commit]  
     if: needs.check_commit.outputs.should_merge == 'true'  
     steps:  
     - name: Merge Pull Request  
-      uses: actions/github-script@v6 
+      uses: actions/github-script@v3  
       with:  
         github-token: ${{secrets.GITHUB_TOKEN}}  
         script: |  
-          github.rest.pulls.merge({  
+          github.pulls.merge({  
             owner: context.repo.owner,  
             repo: context.repo.repo,  
             pull_number: ${{needs.create_pr.outputs.pull_request_number}}  
