@@ -35,12 +35,13 @@ jobs:
       run: pip install -r requirements.txt
     - name: Run Python script to check commit  
       run: python3 check_completeness.py
+      id: python_run
     - name: Output Run Result
-      run: echo ${{ steps.run_script.outputs.result }}
+      run: echo ${{ steps.python_run.outputs.result }}
       env:  
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
     outputs:  
-      should_merge: ${{ steps.run_script.outputs.result == 'success' }}
+      should_merge: ${{ steps.python_run.outputs.result == 'success' }}
 
   merge_pr:  
     runs-on: ubuntu-22.04  
