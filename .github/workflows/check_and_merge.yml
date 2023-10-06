@@ -8,13 +8,13 @@ jobs:
   create_pr:  
     runs-on: ubuntu-22.04 
     steps:  
-    - uses: actions/checkout@v4 
+    - uses: actions/checkout@v2
     - name: Create Pull Request  
-      uses: actions/github-script@v6 
+      uses: actions/github-script@v3 
       with:  
         github-token: ${{secrets.GITHUB_TOKEN}}  
         script: |  
-          const result = await github.rest.pulls.create({  
+          const result = await github.pulls.create({  
             owner: context.repo.owner,  
             repo: context.repo.repo,  
             title: 'Auto Merge from Develop',  
