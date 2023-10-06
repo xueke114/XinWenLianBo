@@ -37,7 +37,7 @@ jobs:
       id: python_run
       run: python3 check_completeness.py
     - name: Output Run Result
-      run: echo ${{ steps.python_run.outputs.* }}
+      run: echo ${{ steps.python_run.outputs.result }}
       env:  
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
     outputs:  

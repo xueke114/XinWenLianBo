@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 
 result = "fail"
@@ -12,4 +13,5 @@ condition_male_anchors = durations["anchorB"].isin(anchors["name"])
 if condition_female_anchors.all() and condition_male_anchors.all():
     result = "success"
 
-print(result)
+with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+    print(f'result={result}', file=fh)
