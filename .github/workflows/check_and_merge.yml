@@ -33,13 +33,13 @@ jobs:
     outputs:  
       should_merge: ${{ steps.python_run.outputs.result == 'success' }}
 
-  merge_pr:
-    runs-on: ubuntu-22.04 
-    needs: [check_commit]
-    if: needs.check_commit.outputs.should_merge == 'true'  
-    steps:
-        - id: automerge
-          name: automerge
-          uses: "pascalgn/automerge-action@v0.15.6"
-          env:
-            GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+#   merge_pr:
+#     runs-on: ubuntu-22.04 
+#     needs: [check_commit]
+#     if: needs.check_commit.outputs.should_merge == 'true'  
+#     steps:
+#         - id: automerge
+#           name: automerge
+#           uses: "pascalgn/automerge-action@v0.15.6"
+#           env:
+#             GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
