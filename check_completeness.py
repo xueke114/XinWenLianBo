@@ -10,4 +10,6 @@ condition_male_anchors = durations["anchorB"].isin(anchors["name"])
 
 if condition_female_anchors.all() and condition_male_anchors.all():
     print("success")
+else:
+    print("fail")
 
