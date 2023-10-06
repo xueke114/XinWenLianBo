@@ -14,7 +14,7 @@ jobs:
       with:  
         github-token: ${{secrets.GITHUB_TOKEN}}  
         script: |  
-          const result = await github.pulls.create({  
+          const result = await github.rest.pulls.create({  
             owner: context.repo.owner,  
             repo: context.repo.repo,  
             title: 'Auto Merge from Develop',  
