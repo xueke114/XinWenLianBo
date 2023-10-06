@@ -38,7 +38,7 @@ jobs:
       env:  
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
     outputs:  
-      should_merge: ${{ steps.run_script.outputs.result == 'success' }}
+      should_merge: ${{ steps.run_script.outputs == 'success' }}
   merge_pr:  
     runs-on: ubuntu-22.04  
     needs: [check_commit]  
