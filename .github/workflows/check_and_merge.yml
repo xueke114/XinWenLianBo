@@ -23,7 +23,7 @@ jobs:
           })  
           core.setOutput('pull_request_number', result.data.number)
   check_commit:  
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-22.04  
     steps:  
     - uses: actions/checkout@v4
     - name: Set up Python 3.8  
@@ -32,16 +32,15 @@ jobs:
         python-version: 3.8  
         cache: 'pip'
     - name: Install dependencies  
-      run: pip install -r requirements.txt  # 如果你的脚本有依赖，请确保它们已经安装  
+      run: pip install -r requirements.txt
     - name: Run Python script to check commit  
-      run: |  
-        python3 check_completeness.py  # 替换为你的Python脚本的名称  
+      run: python3 check_completeness.py
       env:  
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
     outputs:  
-      should_merge: ${{ steps.run_script.outcome == 'success' }}  
+      should_merge: ${{ steps.run_script.outputs.result == 'success' }}
   merge_pr:  
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-22.04  
     needs: [check_commit]  
     if: needs.check_commit.outputs.should_merge == 'true'  
     steps:  
