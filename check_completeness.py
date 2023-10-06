@@ -15,5 +15,6 @@ print(durations["anchorA"][~condition_female_anchors])
 if condition_female_anchors.all() and condition_male_anchors.all():
     result = "success"
 print(result)
-# with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
-#     print(f'result={result}', file=fh)
+
+with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+    print(f'result={result}', file=fh)

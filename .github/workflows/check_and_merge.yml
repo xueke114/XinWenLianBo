@@ -10,6 +10,8 @@ jobs:
     steps:  
     - name: Create Pull Request  
       run: gh pr create -B master -H develop --title 'Merge develop into master' --body 'Created by Github action'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   check_commit:  
     runs-on: ubuntu-22.04  
@@ -31,8 +33,8 @@ jobs:
       should_merge: ${{ steps.python_run.outputs.result == 'success' }}
 
   merge_pr:
-    runs-on: ubuntu-latest  
-    needs: [check_commit]  
+    runs-on: ubuntu-22.04 
+    needs: [check_commit]
     if: needs.check_commit.outputs.should_merge == 'true'  
     steps:
         - id: automerge
