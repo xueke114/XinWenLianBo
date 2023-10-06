@@ -1,0 +1,45 @@
+name: Check Completeness And Auto Merge to Master  
+  
+on:  
+  push:  
+    branches: [ develop ]  
+  
+jobs:  
+  create_pr:  
+    runs-on: ubuntu-22.04 
+    steps:  
+    - uses: actions/checkout@v3
+    - name: Create Pull Request  
+      run: gh pr create -B master -H develop --title 'Merge develop into master' --body 'Created by Github action'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  check_commit:  
+    runs-on: ubuntu-22.04  
+    steps:  
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.8  
+      uses: actions/setup-python@v4
+      with:  
+        python-version: 3.8  
+        cache: 'pip'
+    - name: Install dependencies  
+      run: pip install -r requirements.txt
+    - name: Run Python script to check commit  
+      id: python_run
+      run: python3 check_completeness.py
+      env:  
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+    outputs:  
+      should_merge: ${{ steps.python_run.outputs.result == 'success' }}
+
+#   merge_pr:
+#     runs-on: ubuntu-22.04 
+#     needs: [check_commit]
+#     if: needs.check_commit.outputs.should_merge == 'true'  
+#     steps:
+#         - id: automerge
+#           name: automerge
+#           uses: "pascalgn/automerge-action@v0.15.6"
+#           env:
+#             GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
