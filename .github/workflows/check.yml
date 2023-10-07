@@ -1,4 +1,4 @@
-name: Check Completeness And Auto Merge to Master  
+name: Create PR And Check Completeness
   
 on:  
   push:  
@@ -30,8 +30,8 @@ jobs:
       run: python3 check_completeness.py
       env:  
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-    outputs:  
-      should_merge: ${{ steps.python_run.outputs.result == 'success' }}
+    # outputs:  
+    #   should_merge: ${{ steps.python_run.outputs.result == 'success' }}
 
 #   merge_pr:
 #     runs-on: ubuntu-22.04 
