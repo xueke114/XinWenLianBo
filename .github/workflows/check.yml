@@ -5,14 +5,14 @@ on:
     branches: [ develop ]  
   
 jobs:  
-  create_pr:  
-    runs-on: ubuntu-22.04 
-    steps:  
-    - uses: actions/checkout@v3
-    - name: Create Pull Request  
-      run: gh pr create -B master -H develop --title 'Merge develop into master' --body 'Created by Github action'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # create_pr:  
+  #   runs-on: ubuntu-22.04 
+  #   steps:  
+  #   - uses: actions/checkout@v3
+  #   - name: Create Pull Request  
+  #     run: gh pr create -B master -H develop --title 'Merge develop into master' --body 'Created by Github action'
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   check_commit:  
     runs-on: ubuntu-22.04  
@@ -30,8 +30,8 @@ jobs:
       run: python3 check_completeness.py
       env:  
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-    outputs:  
-      should_merge: ${{ steps.python_run.outputs.result == 'success' }}
+    # outputs:  
+    #   should_merge: ${{ steps.python_run.outputs.result == 'success' }}
 
 #   merge_pr:
 #     runs-on: ubuntu-22.04 
